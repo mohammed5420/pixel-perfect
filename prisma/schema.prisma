@@ -49,6 +49,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    Project       Project[]
 }
 
 model VerificationToken {
@@ -57,4 +58,13 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Project {
+    id          String @id @default(cuid())
+    title       String
+    description String
+    image       String
+    user_id     String
+    user        User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
